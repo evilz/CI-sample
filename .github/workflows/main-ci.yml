@@ -16,22 +16,33 @@ jobs:
       contents: read
 
     steps:
-      - uses: actions/checkout@v2
-      - name: Build the Docker image
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+      -
+        name: Login to registry
+        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ${{ env.REGISTRY }} -u ${{ github.actor }} --password-stdin
+      -
+        name: Build and push
         uses: docker/build-push-action@v2
         with:
+          context: .
+          push: true
           repository: ${{ env.IMAGE_NAME }}
           tags: latest
-      - uses: shrink/actions-docker-extract@v1
+      - 
+        name: Extract artifacts
+        uses: shrink/actions-docker-extract@v1
         with:
           image: ${{ env.IMAGE_NAME }}
           path: /app/artifacts
 
-      - name: Log in to registry
-        # This is where you will update the PAT to GITHUB_TOKEN
-        run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ${{ env.REGISTRY }} -u ${{ github.actor }} --password-stdin
-
-      - uses: actions/upload-artifact@v2
+      - 
+        name: Push artifacts
+        uses: actions/upload-artifact@v2
         with:
           name: reports
           path: ${{ steps.extract.outputs.destination }}
