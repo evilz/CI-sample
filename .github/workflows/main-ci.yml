@@ -17,32 +17,21 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Build the Docker image current (latest)
-        run: |
-          docker build . --tag $IMAGE_NAME --label "runnumber=${GITHUB_RUN_ID}"
-          docker create --name extract $IMAGE_NAME
-          docker cp extract:/app/artifacts /artifacts/
-          docker rm extract
+      - name: Build the Docker image
+        uses: docker/build-push-action@v1
+        with:
+          repository: $IMAGE_NAME
+          tags: latest
+      - uses: shrink/actions-docker-extract@v1
+        with:
+          image: $IMAGE_NAME
+          path: /app/artifacts
 
       - name: Log in to registry
         # This is where you will update the PAT to GITHUB_TOKEN
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ${{ env.REGISTRY }} -u ${{ github.actor }} --password-stdin
 
-      - name: Push image
-        run: |
-          IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME
-          # Strip git ref prefix from version
-          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-          # Strip "v" prefix from tag name
-          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION=$(echo $VERSION | sed -e 's/^v//')
-          # Use Docker `latest` tag convention
-          [ "$VERSION" == "master" ] && VERSION=latest
-          echo IMAGE_ID=$IMAGE_ID
-          echo VERSION=$VERSION
-          docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
-          docker push $IMAGE_ID:$VERSION
-
       - uses: actions/upload-artifact@v2
         with:
           name: reports
-          path: /artifacts/
+          path: ${{ steps.extract.outputs.destination }}
