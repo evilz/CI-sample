@@ -52,6 +52,7 @@ RUN echo "🐳 DOCKER IMAGE" > /dev/null
 FROM mcr.microsoft.com/dotnet/aspnet:6.0-alpine
 ENV ASPNETCORE_URLS=http://+:5000
 WORKDIR /app
-COPY --from=build /source/out ./
+COPY --from=build /source/out/ ./
+COPY --from=build /source/artifacts/ ./artifacts/
 EXPOSE 5000
 ENTRYPOINT ["dotnet", "LeapYear.dll"]
