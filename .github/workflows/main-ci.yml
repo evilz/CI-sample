@@ -43,7 +43,7 @@ jobs:
           name: reports
           path: ${{ steps.extract.outputs.destination }}
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+        uses: JamesIves/github-pages-deploy-action@4.1.5
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ${{ steps.extract.outputs.destination }}
+          branch: gh-pages # The branch the action should deploy to.
+          folder: ${{ steps.extract.outputs.destination }} # The folder the action should deploy.

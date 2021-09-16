@@ -46,7 +46,7 @@
                 <!-- Footer-->
                 <footer class="mt-auto py-5 bg-dark">
                     <div class="container px-5">
-                        <p class="m-0 text-center text-white">Copyright © VPTECH</p>
+                        <p class="m-0 text-center text-white">Made with 💝 by evilz</p>
                     </div>
                 </footer>
             </body>
