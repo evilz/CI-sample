@@ -20,7 +20,7 @@ jobs:
       - name: Build the Docker image current (latest)
         run: |
           docker build . --tag $IMAGE_NAME --label "runnumber=${GITHUB_RUN_ID}"
-          docker create --name extract sample
+          docker create --name extract $IMAGE_NAME
           docker cp extract:/app/artifacts /artifacts/
           docker rm extract
 
