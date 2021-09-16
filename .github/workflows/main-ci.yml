@@ -20,7 +20,7 @@ jobs:
       - name: Build the Docker image
         uses: docker/build-push-action@v2
         with:
-          repository: ${{ $IMAGE_NAME }}
+          repository: ${{ IMAGE_NAME }}
           tags: latest
       - uses: shrink/actions-docker-extract@v1
         with:
