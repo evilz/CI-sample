@@ -24,7 +24,7 @@ jobs:
           tags: latest
       - uses: shrink/actions-docker-extract@v1
         with:
-          image: $IMAGE_NAME
+          image: ${{ env.IMAGE_NAME }}
           path: /app/artifacts
 
       - name: Log in to registry
