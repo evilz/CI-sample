@@ -33,14 +33,12 @@ jobs:
           push: true
           tags: ${{ env.IMAGE_NAME }}
       - uses: shrink/actions-docker-extract@v1
+        id: extract
         with:
           image: ${{ env.IMAGE_NAME }}
           path: app/artifacts/.
-
-      - name: temp
-        run: echo $steps.extract.outputs.destination
       - name: Push artifacts
         uses: actions/upload-artifact@v2
         with:
           name: reports
-          path: ${{ steps.extract.outputs.destination }}/*
+          path: ${{ steps.extract.outputs.destination }}
