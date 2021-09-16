@@ -38,7 +38,7 @@ jobs:
           path: app/artifacts/.
 
       - name: temp
-        run: echo ${{ steps.extract.outputs.destination }}
+        run: echo $steps.extract.outputs.destination
       - name: Push artifacts
         uses: actions/upload-artifact@v2
         with:
