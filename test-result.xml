@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<testsuites time="0.004" tests="5" failures="0">
+  <testsuite id="0" name="/source/test/bin/Release/net6.0/LeapYearTests.dll" tests="5" failures="0" time="0.004">
+    <testcase classname="LeapYearTests" name="LeapYearTests.Should_be_a_leap_year(year: 1992)" time="0.0032883" />
+    <testcase classname="LeapYearTests" name="LeapYearTests.Should_be_a_leap_year(year: 2020)" time="0.0000115" />
+    <testcase classname="LeapYearTests" name="LeapYearTests.Should_be_a_leap_year(year: 2000)" time="0.0000083" />
+    <testcase classname="LeapYearTests" name="LeapYearTests.Should_not_be_a_leap_year(year: 2021)" time="0.0002011" />
+    <testcase classname="LeapYearTests" name="LeapYearTests.Should_not_be_a_leap_year(year: 1900)" time="0.0000086" />
+  </testsuite>
+</testsuites>
